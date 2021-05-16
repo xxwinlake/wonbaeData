@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,18 +26,21 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-   private ArrayList<ShelterData> mData=new ArrayList<ShelterData>();
+   private ArrayList<ShelterData> mData=new ArrayList<ShelterData>();//원본 arraylist
    private ListView mList;
    private MyAdapter mAdapter;
-   private ArrayList<ShelterData> arraylist;
+   private ArrayList<ShelterData> arraylist;//mData 복사본
+    private ArrayList<String> Subject = new ArrayList<>();
+    private Spinner mSpinner;
    private MenuItem mSearch;
-//추가하기
+
    Toolbar toolbar;
     private long backKeyPressedTime = 0; //뒤로가기 버튼 눌렀던 시간 저장
     private Toast toast;//첫번째 뒤로가기 버튼을 누를때 표시하는 변수
 
-    public static void putExtraInfo(Intent intent,String name, String address, String provider){
+    public static void putExtraInfo(Intent intent,int subject, String name, String address, String provider){
         //putExtra함수를 묶어버림
+        intent.putExtra("subject",subject);
         intent.putExtra("name",name);
         intent.putExtra("address",address);
         intent.putExtra("provider",provider);
@@ -45,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter=new MyAdapter(this,mData);
         mList.setAdapter(mAdapter);
         arraylist = new ArrayList<ShelterData>();
-        arraylist.addAll(mData);
+        arraylist.addAll(mData);//복사본 만들기
+
         // 리스트의 모든 데이터를 arraylist에 복사한다.// mdata 복사본을 만든다.
 
         //리스트뷰 클릭 이벤트
@@ -70,8 +74,32 @@ public class MainActivity extends AppCompatActivity {
                 /*리스트 뷰가 눌리면 해당 객체 정보를 대피소 보기 엑티비티로 보냄*/
                 Intent intent = new Intent(view.getContext(),ShelterInpo.class);
                 intent.putExtra("position",position);
-                putExtraInfo(intent,mData.get(position).name, mData.get(position).address, mData.get(position).provider);
+                putExtraInfo(intent,mData.get(position).subject, mData.get(position).name, mData.get(position).address, mData.get(position).provider);
                 startActivityForResult(intent,0);
+            }
+        });
+        Subject.add("지진");
+        Subject.add("해일");
+        Subject.add("화산");
+        mSpinner = (Spinner)findViewById(R.id.Subject);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Subject);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter1);
+        /*스피너 클릭 이벤트*/
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(Subject.equals("전체")){
+
+                }
+                else{
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -142,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         int position;
         if (requestCode==1 && resultCode==RESULT_OK){//추가를 누르고 편집엑티비티에서 저장을 누를경우 값들을 객체에 저장하고 리스트뷰 추가
-            mData.add(new ShelterData(R.drawable.testpic,data.getStringExtra("name"),
+            mData.add(new ShelterData(R.drawable.testpic,data.getIntExtra("subject",-1),data.getStringExtra("name"),
                     data.getStringExtra("provider"),data.getStringExtra("address")));
-            arraylist.add(new ShelterData(R.drawable.testpic,data.getStringExtra("name"),
-                    data.getStringExtra("provider"),data.getStringExtra("address")));
+            arraylist.add(new ShelterData(R.drawable.testpic,data.getIntExtra("subject",-1),data.getStringExtra("name"),
+                    data.getStringExtra("provider"),data.getStringExtra("address")));//mData에 객체가 추가되면 복사본도 추가
         }
         else if(requestCode==0&&resultCode==2){//대피소 보기 엑티비티에서 삭제버튼을 눌렀을 경우 해당 객체를 삭제
             position=data.getIntExtra("position",-1);
@@ -153,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(requestCode==0 && resultCode==3){//대피소 편집 엑티비티에서 저장을 누를 경우 객체 정보를 갱신
             position=data.getIntExtra("position",-1);
+            mData.get(position).subject=data.getIntExtra("subject",-1);
             mData.get(position).name=data.getStringExtra("name");
             mData.get(position).address=data.getStringExtra("address");
             mData.get(position).provider=data.getStringExtra("provider");

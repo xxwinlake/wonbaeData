@@ -14,6 +14,12 @@
         android:theme="?attr/actionBarTheme"
         app:title="대피소"
         app:titleTextColor="#ffffff"/>
+    <Spinner
+        android:id="@+id/Subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        />
 
     <ListView
         android:id="@+id/shetList"

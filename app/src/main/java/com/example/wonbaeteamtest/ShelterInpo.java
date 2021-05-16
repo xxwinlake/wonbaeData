@@ -19,11 +19,14 @@ import org.w3c.dom.Text;
 
 public class ShelterInpo extends AppCompatActivity {
     Toolbar toolbar2;
+    private TextView subjectText;
     private TextView nameText;
     private TextView addressText;
     private TextView providerText;
     private int position;
-    public void TextViewFVI(){//findViewById 3개 묶어버림
+    private int subjectPosition;
+    public void TextViewFVI(){//findViewById 4개 묶어버림
+        subjectText=(TextView)findViewById(R.id.infoSubject);
         nameText=(TextView)findViewById(R.id.shtName);
         addressText=(TextView)findViewById(R.id.shtAdd);
         providerText=(TextView)findViewById(R.id.shtWho);
@@ -40,6 +43,19 @@ public class ShelterInpo extends AppCompatActivity {
         TextViewFVI();
         Intent intent = getIntent();
         position=intent.getIntExtra("position",-1);
+        subjectPosition=intent.getIntExtra("subject",-1);
+        switch (subjectPosition){
+            case 0:
+                subjectText.setText("지진");
+                break;
+            case 1:
+                subjectText.setText("해일");
+                break;
+            case 2:
+                subjectText.setText("화산");
+                break;
+        }
+
         nameText.setText(intent.getStringExtra("name"));
         addressText.setText(intent.getStringExtra("address"));
         providerText.setText(intent.getStringExtra("provider"));
@@ -58,7 +74,7 @@ public class ShelterInpo extends AppCompatActivity {
             case R.id.btnEdit://편집 버튼을 누르면
                 TextViewFVI();
                 Intent intent = new Intent(this,ShelterEdit.class);
-                MainActivity.putExtraInfo(intent,nameText.getText().toString(),
+                MainActivity.putExtraInfo(intent,subjectPosition,nameText.getText().toString(),
                         addressText.getText().toString(),providerText.getText().toString());
                 startActivityForResult(intent,0);
                 break;
@@ -92,7 +108,7 @@ public class ShelterInpo extends AppCompatActivity {
         if (requestCode==0&&resultCode==RESULT_OK){
             Intent toMain = new Intent();
             toMain.putExtra("position",position);
-            MainActivity.putExtraInfo(toMain,data.getStringExtra("name"),
+            MainActivity.putExtraInfo(toMain,data.getIntExtra("subject",-1),data.getStringExtra("name"),
                     data.getStringExtra("address"),data.getStringExtra("provider"));
             setResult(3,toMain);
             finish();

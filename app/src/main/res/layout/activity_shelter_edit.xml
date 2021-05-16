@@ -67,6 +67,29 @@
             >
         </TextView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주제"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_weight="1"/>
+        <Spinner
+            android:id="@+id/editSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
