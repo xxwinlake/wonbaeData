@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
    private MyAdapter mAdapter;
    private ArrayList<ShelterData> arraylist;
    private MenuItem mSearch;
-
+//추가하기
    Toolbar toolbar;
     private long backKeyPressedTime = 0; //뒤로가기 버튼 눌렀던 시간 저장
     private Toast toast;//첫번째 뒤로가기 버튼을 누를때 표시하는 변수
