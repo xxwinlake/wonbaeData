@@ -6,7 +6,8 @@
         android:title="대피소 검색"
         app:showAsAction="always"
         android:icon="@drawable/find_bt"
-        app:actionViewClass="android.widget.SearchView"/>
+        app:actionViewClass="android.widget.SearchView"
+        />
     <item android:id="@+id/btnAdd"
         android:title="대피소 추가"
         app:showAsAction="always"

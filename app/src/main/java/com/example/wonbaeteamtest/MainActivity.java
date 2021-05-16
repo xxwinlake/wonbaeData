@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> Subject = new ArrayList<>();
     private Spinner mSpinner;
    private MenuItem mSearch;
+   private int subjectPosition;
 
    Toolbar toolbar;
     private long backKeyPressedTime = 0; //뒤로가기 버튼 눌렀던 시간 저장
@@ -81,22 +82,19 @@ public class MainActivity extends AppCompatActivity {
         Subject.add("지진");
         Subject.add("해일");
         Subject.add("화산");
+        Subject.add("전체보기");
         mSpinner = (Spinner)findViewById(R.id.Subject);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Subject);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter1);
+        mSpinner.setSelection(3);//초기 설정값
         /*스피너 클릭 이벤트*/
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(Subject.equals("전체")){
-
-                }
-                else{
-
-                }
+            Select(position);
+            subjectPosition=position;
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -113,22 +111,43 @@ public class MainActivity extends AppCompatActivity {
        //menuItem을 이용해서 SearchView 변수 생성
         SearchView sv=(SearchView)mSearch.getActionView();
         sv.setSubmitButtonEnabled(true);//확인버튼 활성화
+        sv.setQueryHint("대피소 이름 검색");
         //SearchView의 검색 이벤트
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             //검색버튼을 눌렀을 경우
             @Override
             public boolean onQueryTextSubmit(String query) {
                 search(query);
+                mSpinner.setSelection(3);//초기 설정값
                 return true;
             }
             //텍스트가 바뀔때마다 호출
             @Override
             public boolean onQueryTextChange(String newText) {
                 search(newText);
+                mSpinner.setSelection(3);//초기 설정값
                 return true;
             }
         });
         return true;
+    }
+    public void Select(int pos){
+        mData.clear();
+        if (pos == 3) {
+            mData.addAll(arraylist);
+        }
+        else
+        {
+            for(int i = 0;i < arraylist.size(); i++)
+            {
+                //객체의 subject(스피너의 인덱스)가 pos(메인 스피너에서 선택된 인덱스)이면
+              if(arraylist.get(i).subject==pos){
+                  // 그 객체를 mData에 넣겠다
+                  mData.add(arraylist.get(i));
+              }
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
     public void search(String charText) {
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
@@ -186,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
             mData.get(position).address=data.getStringExtra("address");
             mData.get(position).provider=data.getStringExtra("provider");
         }
+        Select(subjectPosition);
         mAdapter.notifyDataSetChanged();
         super.onActivityResult(requestCode, resultCode, data);
     }
