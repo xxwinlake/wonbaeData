@@ -44,6 +44,7 @@ public class ShelterInpo extends AppCompatActivity {
         Intent intent = getIntent();
         position=intent.getIntExtra("position",-1);
         subjectPosition=intent.getIntExtra("subject",-1);
+
         switch (subjectPosition){
             case 0:
                 subjectText.setText("지진");
@@ -119,7 +120,8 @@ public class ShelterInpo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch ((item.getItemId())){
-            case android.R.id.home:{  //뒤로가기 고유 id 값
+            //ids.xml에 있는 안드로이드 오픈소스 아이디값
+            case android.R.id.home:{
                 super.onBackPressed();
                 break;
             }

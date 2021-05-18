@@ -10,8 +10,9 @@
 
     <ImageView
         android:id="@+id/splash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/splash" />
+        android:layout_width="201dp"
+        android:layout_height="177dp"
+        android:background="@drawable/splash1"
+        android:scaleType="fitXY" />
 
 </LinearLayout>

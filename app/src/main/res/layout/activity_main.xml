@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/main_back">
     <!-- 액션바 제거 후 툴바 사용-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,8 +13,8 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="대피소"
-        app:titleTextColor="#ffffff"/>
+    app:title="대피소"
+    app:titleTextColor="#ffffff"/>
     <Spinner
         android:id="@+id/Subject"
         android:layout_width="match_parent"

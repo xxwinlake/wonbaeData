@@ -48,8 +48,11 @@ public class ShelterEdit extends AppCompatActivity {
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Subject);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter1);
+
+        //subjectPosition에 subject 값을 인텐트로 가져옴.
         subjectPosition=intent.getIntExtra("subject",-1);
         mSpinner.setSelection(subjectPosition);//초기값
+
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -67,6 +70,7 @@ public class ShelterEdit extends AppCompatActivity {
         Intent data = new Intent();
         switch (view.getId()){
             case R.id.btnSave:
+                //저장버튼을 눌렀을때, 문자열 값이 없으면 대피소이름을 입력하라고 toast출력.
                 if(nameText.getText().toString().length()<=0){
                     Toast.makeText(this,"대피소 이름을 입력해주세요.",Toast.LENGTH_SHORT).show();
                     break;
