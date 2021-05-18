@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*인텐트이동*/
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         int position;
