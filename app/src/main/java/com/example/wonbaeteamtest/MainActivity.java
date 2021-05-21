@@ -223,8 +223,6 @@ public class MainActivity extends AppCompatActivity {
             arraylist.remove(position);
         }
 
-
-
         else if (requestCode == 0 && resultCode == 3) {//대피소 편집 엑티비티에서 저장을 누를 경우 객체 정보를 갱신
             position = data.getIntExtra("position", -1);
             mData.get(position).subject = data.getIntExtra("subject", -1);
@@ -233,7 +231,9 @@ public class MainActivity extends AppCompatActivity {
             mData.get(position).provider = data.getStringExtra("provider");
         }
         Select(subjectPosition);
-        mAdapter.notifyDataSetChanged();
+
+       // mAdapter.notifyDataSetChanged(); Select 함수에 이미 있음.
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 

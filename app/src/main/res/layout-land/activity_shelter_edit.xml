@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,124 +11,143 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        >
+        android:theme="?attr/actionBarTheme">
+
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="대피소 추가/편집"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title"
-            android:textSize="20sp"
+            android:text="대피소 추가/편집"
             android:textColor="#ffffff"
-            />
+            android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-    android:orientation="horizontal"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_weight="1">
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
-        android:textColor="#ffff0000"
-        android:text="대피소사진"
-        android:gravity="center"
-        android:layout_gravity="center"/>
-    <ImageView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:src="@drawable/testpic"
-        android:scaleType="fitXY"
-        android:id="@+id/shtImg"/>
 
-</LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_weight="1">
-    <TextView
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
-        android:textColor="#ffff0000"
-        android:text="대피소추가/편집"
-        android:gravity="center"
-        android:layout_gravity="center"/>
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="주제"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="17dp"
-                android:layout_weight="1"/>
-            <Spinner
-                android:id="@+id/editSubject"
+                android:text="대피소사진"
+                android:textColor="#ffff0000" />
+
+            <ImageView
+                android:id="@+id/shtImg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_weight="1"
-                />
+                android:scaleType="fitXY"
+                android:src="@drawable/testpic" />
+
         </LinearLayout>
-    <EditText
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:id="@+id/shtName"
-        android:hint="대피소 이름입력"
-        android:textSize="18dp"/>
 
-    <EditText
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:id="@+id/shtAdd"
-        android:hint="대피소 주소입력"
-        android:textSize="18dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <EditText
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:id="@+id/shtWho"
-        android:hint="정보제공자 이름입력"
-        android:textSize="18dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="대피소추가/편집"
+                android:textColor="#ffff0000" />
 
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:text="저장"
-        android:id="@+id/btnSave"
-        android:onClick="mOnClick"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="주제"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:text="취소"
-        android:id="@+id/btnCancel"
-        android:onClick="mOnClick"/>
-</LinearLayout>
-</LinearLayout>
-</LinearLayout>
-</LinearLayout>
+                <Spinner
+                    android:id="@+id/editSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAlignment="center" />
+            </LinearLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <EditText
+                android:id="@+id/shtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="대피소 이름입력"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/shtAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="대피소 주소입력"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/shtWho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="정보제공자 이름입력"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="mOnClick"
+                    android:text="저장" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="mOnClick"
+                    android:text="취소" />
+            </LinearLayout>
+            </LinearLayout>
+            </ScrollView>
+
+
+        </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
