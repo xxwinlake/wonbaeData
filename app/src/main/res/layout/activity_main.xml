@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/main_back">
+
     <!-- 액션바 제거 후 툴바 사용-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -22,10 +23,10 @@
         android:padding="8dp"
         />
 
-    <ListView
-        android:id="@+id/shetList"
+    <fragment
+        android:name="com.example.wonbaeteamtest.ListFragment"
+        android:id="@+id/listf"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textFilterEnabled="true"
-        />
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
