@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*툴바생성*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("") ;
         super.setSupportActionBar(toolbar);
 
         /*리스트뷰 초기회*/
@@ -88,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //스피너 사용을 위한 Subject 배열에 요소추가
-        Subject.add("지진");
-        Subject.add("해일");
-        Subject.add("화산");
-        Subject.add("전체보기");
+        Subject.add("지진 대피소");
+        Subject.add("해일 대피소");
+        Subject.add("화산 대피소");
+        Subject.add("대피소 전체보기");
         mSpinner = (Spinner) findViewById(R.id.Subject);
 
         //adapter1에 Subject 배열을 넣어줌.
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter1);
-        mSpinner.setSelection(3);//초기 설정값 (전체보기) 0.지진 1.해일 2.화산. 3전체
+        selectSP();//초기 설정값 (전체보기) 0.지진 1.해일 2.화산. 3전체
 
         /*스피너 클릭 이벤트*/
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void selectSP(){
+        mSpinner.setSelection(3);
+        subjectPosition=3;
+    }
     /* Select 스피너 클릭메소드 구현*/
     public void Select(int pos) {
         mData.clear();
@@ -139,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-
         mSearch = menu.findItem(R.id.btnSearch);
         //menuItem을 이용해서 SearchView 변수 생성
         SearchView sv = (SearchView) mSearch.getActionView();
@@ -151,16 +154,15 @@ public class MainActivity extends AppCompatActivity {
             //검색버튼을 눌렀을 경우
             @Override
             public boolean onQueryTextSubmit(String query) {
+                selectSP();//검색시 전체보기로 초기세팅값을 설정
                 search(query);
-                mSpinner.setSelection(3);//검색시 전체보기로 초기세팅값을 설정
                 return true;
             }
-
             //텍스트가 바뀔때마다 호출
             @Override
             public boolean onQueryTextChange(String newText) {
+                selectSP();//검색시 전체보기로 초기세팅값을 설정
                 search(newText);
-                mSpinner.setSelection(3);//검색시 전체보기로 초기세팅값을 설정
                 return true;
             }
         });
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {//메뉴에서 버튼이 눌리면
         switch (item.getItemId()) {
-            case R.id.btnAdd://추가 버튼이 눌르면
+            case R.id.btnAdd://추가 버튼이 누르면
                 Intent intent2 = new Intent(this, ShelterEdit.class);//편집 엑티비티로 이동
                 startActivityForResult(intent2, 1);
                 break;

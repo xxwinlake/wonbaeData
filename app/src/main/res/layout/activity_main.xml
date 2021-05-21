@@ -14,15 +14,15 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-    app:title="대피소"
-    app:titleTextColor="#ffffff"/>
+    >
+
     <Spinner
         android:id="@+id/Subject"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         />
-
+    </androidx.appcompat.widget.Toolbar>
     <fragment
         android:name="com.example.wonbaeteamtest.ListFragment"
         android:id="@+id/listf"
