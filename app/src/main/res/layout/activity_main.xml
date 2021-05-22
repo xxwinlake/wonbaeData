@@ -23,10 +23,9 @@
         android:padding="8dp"
         />
     </androidx.appcompat.widget.Toolbar>
-    <fragment
-        android:name="com.example.wonbaeteamtest.ListFragment"
-        android:id="@+id/listf"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:id="@+id/list"/>
 
 </LinearLayout>
