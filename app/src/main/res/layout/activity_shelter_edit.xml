@@ -41,10 +41,11 @@
         <ImageView
             android:id="@+id/shtImg"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/testpic"/>
+            android:src="@drawable/testpic"
+            android:adjustViewBounds="true"/>
 
 
     </LinearLayout>
