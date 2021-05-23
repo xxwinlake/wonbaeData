@@ -45,7 +45,8 @@
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@drawable/testpic"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:onClick="mOnClick"/>
 
 
     </LinearLayout>
