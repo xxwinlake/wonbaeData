@@ -1,5 +1,6 @@
 package com.example.wonbaeteamtest;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +16,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.example.wonbaeteamtest.MainActivity.mData;//메인 엑티비티의 mData를 사용하기 위한 임포트
+import static com.example.wonbaeteamtest.MainActivity.arraylist;//메인 엑티비티의 arraylist를 사용하기 위한 임포트
+
 public class ListFragment extends Fragment {
     public interface OnListSelectedListener {
-        public void onListSelected(int i,ArrayList<ShelterData>mData);
+        public void onListSelected(int i);
     }
-    private ArrayList<ShelterData> mData = new ArrayList<ShelterData>();//원본 arraylist
-    private ArrayList<ShelterData> arraylist;//mData 복사본
     private ListView mList;
     private MyAdapter mAdapter;
 
-    public ListFragment() {
-        // Required empty public constructor
-    }
-
+    public ListFragment() {}//기본생성자
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,19 +35,16 @@ public class ListFragment extends Fragment {
         mList = (ListView) rv.findViewById(R.id.shetList);
         mAdapter = new MyAdapter(getActivity(), mData);
         mList.setAdapter(mAdapter);
-        arraylist = new ArrayList<ShelterData>();
-        arraylist.addAll(mData);//복사본 만들기
-        // 리스트의 모든 데이터를 arraylist에 복사한다.// mdata 복사본을 만든다.
+
         //리스트뷰 클릭 이벤트
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Activity activity = getActivity();
-                ((OnListSelectedListener) activity).onListSelected(position,mData);
+                ((OnListSelectedListener) activity).onListSelected(position);
             }
         });
 
-        // Inflate the layout for this fragment
         return rv;
     }
     /*search 서치뷰기능 메소드 */
@@ -89,14 +85,5 @@ public class ListFragment extends Fragment {
             }
         }
         mAdapter.notifyDataSetChanged();
-    }
- public void setmData(ArrayList<ShelterData> mainMData){
-        mData.clear();
-        mData.addAll(mainMData);
- }
-
-    public void setArraylist(ArrayList<ShelterData> mainArrayList){
-        arraylist.clear();
-        arraylist.addAll(mainArrayList);
     }
 }
