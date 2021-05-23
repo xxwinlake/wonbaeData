@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/main_back">
+    android:orientation="vertical">
+    <!--android:background="@drawable/main_back"-->
 
     <!-- 액션바 제거 후 툴바 사용-->
     <androidx.appcompat.widget.Toolbar
@@ -23,6 +23,25 @@
         android:padding="8dp"
         />
     </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/toHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="mOnClick"
+            android:text="홈으로"/>
+        <Button
+            android:id="@+id/toShelter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="mOnClick"
+            android:text="대피소 조회"/>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
