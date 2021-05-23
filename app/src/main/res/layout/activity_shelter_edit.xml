@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="대피소사진"
+            android:text="대피소사진추가 (이미지클릭)"
             android:gravity="center"
             android:layout_weight="1"
             android:textColor="#ffff0000"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/testpic"
+            android:src="@drawable/selectimage"
             android:adjustViewBounds="true"
             android:onClick="mOnClick"/>
 
