@@ -2,67 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="실시간 기상정보 버튼" />
 
+        <!--실시간 기상정보-->
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/weatherbt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/main11"
-            android:onClick="mOnClick"/>
+            android:onClick="mOnClick"
+            android:src="@drawable/weather"
+            android:adjustViewBounds="true"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="국민 행동요령 버튼" />
-
+        <!--        비상 시 행동요령-->
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/behavioralbt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/main3"
-            android:onClick="mOnClick"/>
+            android:src="@drawable/behavior"
+            android:onClick="mOnClick"
+            android:adjustViewBounds="true"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="긴급 신고 버튼" />
-
+        <!--        실시간 재난 뉴스-->
         <ImageView
-            android:id="@+id/dialbt"
+            android:scaleType="fitXY"
+            android:id="@+id/disasternews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/main2"
-            android:onClick="mOnClick"/>
+            android:src="@drawable/disaster"
+            android:onClick="mOnClick"
+            android:adjustViewBounds="true"/>
     </LinearLayout>
+
 </LinearLayout>

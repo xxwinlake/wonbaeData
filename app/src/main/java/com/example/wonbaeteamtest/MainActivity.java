@@ -1,47 +1,45 @@
 package com.example.wonbaeteamtest;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.MenuItemCompat;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.OnListSelectedListener{
     public static ArrayList<ShelterData>mData=new ArrayList<>();//전역변수로 설정
     public static ArrayList<ShelterData>arraylist=new ArrayList<>();
-
+    public static byte[] byteArray;
     public void onListSelected(int position){
+
         /*리스트 뷰가 눌리면 해당 객체 정보를 대피소 보기 엑티비티로 보냄*/
         Intent intent = new Intent(this, ShelterInpo.class);
-        intent.putExtra("position", position);
-        putExtraInfo(intent, mData.get(position).subject, mData.get(position).name,
-                mData.get(position).address, mData.get(position).provider);
+        putExtraInfo(intent,mData.get(position)._id, mData.get(position).byteArray, mData.get(position).subject, mData.get(position).name,
+                mData.get(position).address, mData.get(position).provider,mData.get(position).audio,mData.get(position).video);
         startActivityForResult(intent, 0);
     }
 
     ListFragment listFragment = new ListFragment();
     HomeFragment homeFragment = new HomeFragment();
+    HomeLandFragment homelandFragment = new HomeLandFragment();
 
     private ArrayList<String> Subject = new ArrayList<>(); //스피너 생성용 배열
     private Spinner mSpinner;
@@ -51,21 +49,36 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnLi
     private int subjectPosition;
 
     Toolbar toolbar;
+    private boolean fragmentCheck;
 
     private long backKeyPressedTime = 0; //뒤로가기 버튼 눌렀던 시간 저장
     private Toast toast;//첫번째 뒤로가기 버튼을 누를때 표시하는 변수
 
-    public static void putExtraInfo(Intent intent, int subject, String name, String address, String provider) {
+    private DbOpenHelper mDbOpenHelper;
+    private Cursor mCursor;
+    private ShelterData shelterData;
+
+    public static void putExtraInfo(Intent intent,int id, byte[] byteArray , int subject, String name, String address, String provider,String audio,String video) {
         //putExtra함수를 묶어버림
+        intent.putExtra("id",id);
+        intent.putExtra("image",byteArray);
         intent.putExtra("subject", subject);
         intent.putExtra("name", name);
         intent.putExtra("address", address);
         intent.putExtra("provider", provider);
+        intent.putExtra("audio",audio);
+        intent.putExtra("video",video);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT&&fragmentCheck) {
+            goHomeFrag();
+        }
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE&&fragmentCheck) {
+            goHomeLandFrag();
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +100,18 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnLi
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter1);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.list, listFragment).commit();//list프래그먼트 생성 (이거먼저안하면 오류남)
-        goHomeFrag();//시작화면이 홈프래그먼트로 시작하게
+        mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+        doWhileCursorToArray();
+        mDbOpenHelper.close();
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, listFragment).commit();//list프래그먼트 생성 (이거먼저안하면 오류남)
+            if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            goHomeLandFrag();
+            }
+            else{
+                    goHomeFrag();//시작화면이 홈프래그먼트로 시작하게
+                }
         /*스피너 클릭 이벤트*/
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -101,6 +123,26 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnLi
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+    }
+    private void doWhileCursorToArray(){
+        arraylist.clear();
+        mCursor = null;
+        mCursor = mDbOpenHelper.getAllColumns();
+        while (mCursor.moveToNext()) {
+            shelterData = new ShelterData(
+                    mCursor.getInt(mCursor.getColumnIndex("_id")),
+                    mCursor.getBlob(mCursor.getColumnIndex("image")),
+                    mCursor.getInt(mCursor.getColumnIndex("subject")),
+                    mCursor.getString(mCursor.getColumnIndex("name")),
+                    mCursor.getString(mCursor.getColumnIndex("address")),
+                    mCursor.getString(mCursor.getColumnIndex("provider")),
+                    mCursor.getString(mCursor.getColumnIndex("audio")),
+                    mCursor.getString(mCursor.getColumnIndex("video"))
+            );
+            arraylist.add(shelterData);
+        }
+        mCursor.close();
     }
     public void selectAllView(){
         mSpinner.setSelection(3);
@@ -139,12 +181,20 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnLi
         return true;
     }
     public void goHomeFrag(){//홈프래그먼트로 가는 메소드
+        fragmentCheck=true;
         toolbar.setTitle("네얼간이 대피소") ;//타이틀을 설정
         mSpinner.setVisibility(View.GONE);//스피너를 안보이게
-        getSupportFragmentManager().beginTransaction().replace(R.id.list,homeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeFragment).commit();
+    }
+    public void goHomeLandFrag(){
+        fragmentCheck=true;
+        toolbar.setTitle("네얼간이 대피소") ;//타이틀을 설정
+        mSpinner.setVisibility(View.GONE);//스피너를 안보이게
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homelandFragment).commit();
     }
     public void goSheltFrag(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.list,listFragment).commit();
+        fragmentCheck=false;
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,listFragment).commit();
         toolbar.setTitle("") ;//타이틀을 안보이게
         mSpinner.setVisibility(View.VISIBLE);//스피너를 보이게 설정
         selectAllView();//스피너 전체 보기 설정
@@ -152,11 +202,19 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnLi
 public void mOnClick(View view){
         switch (view.getId()){
             case R.id.toHome:
-                goHomeFrag();
+                if(getResources().getConfiguration().orientation== Configuration.ORIENTATION_LANDSCAPE) {
+                    goHomeLandFrag();
+                }
+                else{
+                    goHomeFrag();//시작화면이 홈프래그먼트로 시작하게
+                }
                 break;
             case R.id.toShelter:
                goSheltFrag();
                 break;
+            case R.id.emer:
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:119"));
+                startActivity(myIntent);
         }
 }
     /* 액션바에서 추가버튼 눌렸을 시 */
@@ -173,60 +231,27 @@ public void mOnClick(View view){
     /*인텐트이동*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        int position;
+        int id = data.getIntExtra("id", -1);
+        mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
         if (requestCode == 1 && resultCode == RESULT_OK) {//추가를 누르고 편집엑티비티에서 저장을 누를경우 값들을 객체에 저장하고 리스트뷰 추가
-            mData.add(new ShelterData(R.drawable.testpic, data.getIntExtra("subject", -1), data.getStringExtra("name"),
-                    data.getStringExtra("provider"), data.getStringExtra("address")));
-            arraylist.add(new ShelterData(R.drawable.testpic, data.getIntExtra("subject", -1), data.getStringExtra("name"),
-                    data.getStringExtra("provider"), data.getStringExtra("address")));//mData에 객체가 추가되면 복사본도 추가
-
+            mDbOpenHelper.insertColumn(data.getByteArrayExtra("image"),data.getIntExtra("subject", -1), data.getStringExtra("name"),
+                    data.getStringExtra("provider"), data.getStringExtra("address"),data.getStringExtra("audio"),data.getStringExtra("video"));
         } else if (requestCode == 0 && resultCode == 2) {//대피소 보기 엑티비티에서 삭제버튼을 눌렀을 경우 해당 객체를 삭제
-            position = data.getIntExtra("position", -1);
-            if(subjectPosition==3){
-                arraylist.remove(position);}
-            else{
-                int count=0;
-                for(int i = 0;i < arraylist.size(); i++)
-                {
-                    if(arraylist.get(i).subject==subjectPosition){
-                        if(count==position){
-                            arraylist.remove(i);
-                        }
-                        count++;
-                    }
-                }
-            }
+            mDbOpenHelper.deleteColumn(id);
         }
         else if (requestCode == 0 && resultCode == 3) {//대피소 편집 엑티비티에서 저장을 누를 경우 객체 정보를 갱신
-            position = data.getIntExtra("position", -1);
-            if(subjectPosition==3){
-                arraylist.get(position).subject = data.getIntExtra("subject", -1);
-                arraylist.get(position).name = data.getStringExtra("name");
-                arraylist.get(position).address = data.getStringExtra("address");
-                arraylist.get(position).provider = data.getStringExtra("provider");
-            }
-            else{
-                int count=0;
-                for(int i = 0;i < arraylist.size(); i++)
-                {
-                    if(arraylist.get(i).subject==subjectPosition){
-                        if(count==position){
-                            arraylist.get(i).subject = data.getIntExtra("subject", -1);
-                            arraylist.get(i).name = data.getStringExtra("name");
-                            arraylist.get(i).address = data.getStringExtra("address");
-                            arraylist.get(i).provider = data.getStringExtra("provider");
-                        }
-                        count++;
-                    }
-                }
-            }
+            mDbOpenHelper.updateColumn(id,data.getByteArrayExtra("image"), data.getIntExtra("subject", -1), data.getStringExtra("name"),
+                    data.getStringExtra("address") ,data.getStringExtra("provider"),data.getStringExtra("audio"),data.getStringExtra("video"));
         }
+        doWhileCursorToArray();
+        mDbOpenHelper.close();
         listFragment.Select(subjectPosition);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     /* 뒤로가기 버튼 메소드*/
-    public void onBackPressed() {
+    public void onBackPressed(){
         //super.onBackPressed();
         //기존의 뒤로가기 버튼 기능 막기
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {

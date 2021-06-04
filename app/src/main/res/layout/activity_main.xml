@@ -23,28 +23,49 @@
         android:padding="8dp"
         />
     </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="59dp"
+        android:background="#ffffff"
         android:orientation="horizontal">
-        <Button
+
+        <ImageButton
             android:id="@+id/toHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#ffffff"
             android:onClick="mOnClick"
-            android:text="홈으로"/>
-        <Button
+            android:scaleType="centerInside"
+            android:src="@drawable/homeb" />
+
+        <ImageButton
+            android:id="@+id/emer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#ffffff"
+            android:onClick="mOnClick"
+            android:scaleType="centerInside"
+            android:src="@drawable/ellipse" />
+
+        <ImageButton
             android:id="@+id/toShelter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#ffffff"
             android:onClick="mOnClick"
-            android:text="대피소 조회"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/inquiry" />
+
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list"/>
+        android:background="#ffffff"
+        android:id="@+id/fragment"/>
 
 </LinearLayout>

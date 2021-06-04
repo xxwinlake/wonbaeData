@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/testpic" />
+                android:src="@drawable/defaultimg" />
         </LinearLayout>
 
         <ScrollView
@@ -149,6 +149,40 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="18dp" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="녹음파일"
+                        android:textSize="18dp" />
+
+                    <Button
+                        android:id="@+id/info_playbt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="재생"/>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <VideoView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/video_view"/>
 
                 </LinearLayout>
 

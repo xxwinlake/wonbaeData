@@ -10,10 +10,10 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
-public class HomeFragment extends Fragment {
+public class HomeLandFragment extends Fragment {
 
 
-    public HomeFragment() {
+    public HomeLandFragment() {
         // Required empty public constructor
     }
 
@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rv = inflater.inflate(R.layout.fragment_home, container, false);
+        View rv = inflater.inflate(R.layout.fragment_home_land, container, false);
         ImageView news = rv.findViewById(R.id.disasternews);
         ImageView weather = rv.findViewById(R.id.weatherbt);
         ImageView behavior = rv.findViewById(R.id.behavioralbt);
@@ -51,6 +51,5 @@ public class HomeFragment extends Fragment {
         });
 
         return rv;
-}
     }
-
+}

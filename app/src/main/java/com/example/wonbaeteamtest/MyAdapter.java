@@ -1,6 +1,8 @@
 package com.example.wonbaeteamtest;
 
         import android.content.Context;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
         import android.media.Image;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -16,8 +18,6 @@ package com.example.wonbaeteamtest;
 public class MyAdapter extends BaseAdapter  {
     private Context ctx;
     private ArrayList<ShelterData> data;//원본
-
-
 
     public MyAdapter(Context ctx,ArrayList<ShelterData> data){
         this.ctx=ctx;
@@ -44,8 +44,15 @@ public class MyAdapter extends BaseAdapter  {
             LayoutInflater inflater = LayoutInflater.from(ctx);
             view = inflater.inflate(R.layout.shelter_list,viewGroup,false);
         }
-        ImageView image = (ImageView)view.findViewById(R.id.image);
-        image.setImageResource(data.get(i).img);
+        ImageView smallImage = (ImageView)view.findViewById(R.id.smallImage);
+
+        if(data.get(i).byteArray!=null){
+            Bitmap image = BitmapFactory.decodeByteArray(data.get(i).byteArray, 0, data.get(i).byteArray.length);
+            smallImage.setImageBitmap(image);
+        }
+        else{
+            smallImage.setImageResource(R.drawable.defaultimg);
+        }
         TextView text1 = (TextView)view.findViewById(R.id.nameText);
         text1.setText(data.get(i).name);
         TextView text2 = (TextView)view.findViewById(R.id.providerText);

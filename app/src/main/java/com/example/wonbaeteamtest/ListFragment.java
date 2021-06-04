@@ -33,7 +33,7 @@ public class ListFragment extends Fragment {
         View rv = inflater.inflate(R.layout.fragment_list, container, false);
         /*리스트뷰 초기회*/
         mList = (ListView) rv.findViewById(R.id.shetList);
-        mAdapter = new MyAdapter(getActivity(), mData);
+        mAdapter = new MyAdapter(getContext(), mData);
         mList.setAdapter(mAdapter);
 
         //리스트뷰 클릭 이벤트

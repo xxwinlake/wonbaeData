@@ -50,7 +50,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/testpic" />
+                android:src="@drawable/defaultimg" />
 
         </LinearLayout>
 
@@ -91,63 +91,135 @@
                     android:gravity="center"
                     android:textAlignment="center" />
             </LinearLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <EditText
-                android:id="@+id/shtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="대피소 이름입력"
-                android:textSize="18dp" />
 
-            <EditText
-                android:id="@+id/shtAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="대피소 주소입력"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/shtWho"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="정보제공자 이름입력"
-                android:textSize="18dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnSave"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="mOnClick"
-                    android:text="저장" />
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/shtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="대피소 이름입력"
+                        android:textSize="18dp" />
 
-                <Button
-                    android:id="@+id/btnCancel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="mOnClick"
-                    android:text="취소" />
-            </LinearLayout>
-            </LinearLayout>
+                    <EditText
+                        android:id="@+id/shtAdd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="대피소 주소입력"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/shtWho"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="정보제공자 이름입력"
+                        android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:text="멀티미디어 메모"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textColor="#ffff0000"
+                            android:layout_marginBottom="5dp"
+                            >
+                        </TextView>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <Button
+                                android:id="@+id/video_bt"
+                                android:text="비디오추가"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:onClick="mOnClick"/>
+                            <VideoView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/video_view"/>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/recordbt"
+                                android:onClick="mOnClick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="녹음시작"/>
+
+                            <Button
+                                android:id="@+id/playbt"
+                                android:onClick="mOnClick"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="재생"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="저장/취소"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="#ffff0000"
+                        android:layout_marginBottom="5dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnSave"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="mOnClick"
+                            android:text="저장" />
+
+                        <Button
+                            android:id="@+id/btnCancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="mOnClick"
+                            android:text="취소" />
+                    </LinearLayout>
+                </LinearLayout>
             </ScrollView>
 
 
         </LinearLayout>
-        </LinearLayout>
-
     </LinearLayout>
+
+</LinearLayout>

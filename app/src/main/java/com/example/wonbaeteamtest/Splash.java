@@ -42,13 +42,19 @@ public class Splash extends Activity {
         iv.clearAnimation();
         iv.startAnimation(anim);
 
+        anim = AnimationUtils.loadAnimation(this, R.anim.textview);
+        anim.reset();
+        ImageView iv1 = (ImageView) findViewById(R.id.splash_2);
+        iv1.clearAnimation();
+        iv1.startAnimation(anim);
+
         splashTread = new Thread() {
             @Override
             public void run() {
                 try {
                     int waited = 0;
                     // Splash screen pause time
-                    while (waited < 4000) {
+                    while (waited < 3000) {
                         sleep(100);
                         waited += 100;
                     }
@@ -62,11 +68,8 @@ public class Splash extends Activity {
                 } finally {
                     Splash.this.finish();
                 }
-
             }
         };
         splashTread.start();
-
     }
-
 }
