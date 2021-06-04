@@ -1,9 +1,5 @@
 package com.example.wonbaeteamtest;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +22,10 @@ import android.widget.MediaController;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -170,10 +170,10 @@ public class ShelterEdit extends AppCompatActivity {
         if (requestCode == GET_GALLERY_VIDEO) {
             if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                 mVideoView = (VideoView) findViewById(R.id.video_view);
-
+                Uri fileUri = data.getData();
                 MediaController mc = new MediaController(this);
                 mVideoView.setMediaController(mc);
-                mVideoView.setVideoPath(String.valueOf(video));
+                mVideoView.setVideoPath(String.valueOf(fileUri));
                 mVideoView.setOnPreparedListener(mp -> {
                     mp.setLooping(false);
                     mp.seekTo(0);
